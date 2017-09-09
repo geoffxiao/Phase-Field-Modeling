@@ -54,6 +54,16 @@ end
 end
 end
 
+%% Film Ref as a function of Crystal Ref
+% P_CrystalRef = [sym('P1_CrystalRef'); sym('P2_CrystalRef'); sym('P3_CrystalRef')];
+% P_FilmRef = sym(zeros(3,1));
+% 
+% for i = 1 : 3
+%     for j = 1 : 3
+%         P_FilmRef(i) = Transform_Matrix(i,j) * P_CrystalRef(j) + P_FilmRef(i);
+%     end
+% end
+
 %%
 
 % Express P in crystal as P in film reference to change Landau energies
