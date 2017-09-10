@@ -1,4 +1,4 @@
-function Main_0(E1_var, E2_var, E3_var, Nucleation_Sites_var, PATH_var, LOAD_var)
+function [P1_mean, P2_mean, P3_mean] = Main_0(E1_var, E2_var, E3_var, Nucleation_Sites_var, PATH_var, LOAD_var)
 
     Nucleation_Sites = Nucleation_Sites_var;
     PATH = PATH_var;
@@ -59,5 +59,9 @@ function Main_0(E1_var, E2_var, E3_var, Nucleation_Sites_var, PATH_var, LOAD_var
 
     %% Main loop
     MainLoop
+    
+    P1_mean = vol_avg( P1 );
+    P2_mean = vol_avg( P2 );
+    P3_mean = vol_avg( P3 );
     
 end

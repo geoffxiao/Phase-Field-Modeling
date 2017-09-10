@@ -8,7 +8,7 @@ while (c == 0 || error > epsilon) && c < saves(end)
     
     % saving 
     if( sum(c == saves) == 1 )        
-    	save(sprintf('%s%g t__%g Us11__%g Us22__%gC__%gkV-cm__%s.mat',PATH,c,Us_11*1e2,Us_22*1e2,T,E_1_applied/1e5,STRING),'P1','P2','P3');
+    	save(sprintf('%s%g t__%g Us11__%g Us22__%gC__%gkV-cm__%s.mat',PATH,c,Us_11*1e2,Us_22*1e2,Temperature,E_1_applied/1e5,STRING),'P1','P2','P3');
     end
     
     % Previous iteration

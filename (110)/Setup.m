@@ -2,7 +2,7 @@
 rng(100)
 LOAD = 0; % 1 = Load initial conditions from file called init.mat, 0 = random P initial conditions
 E_1_applied_FilmRef = 0; E_2_applied_FilmRef = 0; E_3_applied_FilmRef = 0; % in V/m, 1e5 V/m = 1 kV/cm
-T = 27; % in C
+Temperature = 27; % in C
 Us_11 = -0.5*1e-2; % unitless misfit strain
 Us_22 = Us_11; % anisotropic misfit strain
 Us_12 = 0;
@@ -71,7 +71,7 @@ q44 = 2 * C44 * Q44;
 
 %% LGD Constants, stress free BTO
 a1_T = @(T) 4.9 * ((T+273)-1103) * 1e5; % T in C
-a1 = a1_T(T);
+a1 = a1_T(Temperature);
 a11 = 5.42 * 1e8;
 a12 = 1.54 * 1e8;
 a111 = 0;
