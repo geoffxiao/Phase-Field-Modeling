@@ -1,8 +1,8 @@
-function [P1_mean, P2_mean, P3_mean] = Main_0(E1_var, E2_var, E3_var, Nucleation_Sites_var, PATH_var, LOAD_var)
+function [P1_mean, P2_mean, P3_mean] = Main_0(E1_var, E2_var, E3_var, Nucleation_Sites_var, PATH_var)
 
     Nucleation_Sites = Nucleation_Sites_var;
     PATH = PATH_var;
-    LOAD = LOAD_var;
+    LOAD = 0;
 
     E_1_applied = E1_var;
     E_2_applied = E2_var;

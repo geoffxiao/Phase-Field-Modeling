@@ -5,15 +5,15 @@ E_1_applied_FilmRef = 0; E_2_applied_FilmRef = 0; E_3_applied_FilmRef = 0; % in 
 Us_11 = Us; % unitless misfit strain
 Us_22 = Us_11; % anisotropic misfit strain
 Us_12 = 0;
-VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
-VPA_ELASTIC_ON = 0;
-dt_factor = 0.06;
+% VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
+% VPA_ELASTIC_ON = 0;
+dt_factor = 0.01;
 
 %% ---- Nothing needed to modify below ---- %%
 % BFO Constants http://www.mmm.psu.edu/JXZhang2008_JAP_Computersimulation.pdf
 
 %% Convergence
-epsilon = 1e-5; % convergence criterion
+epsilon = 1e-3; % convergence criterion
 saves = [0 : 1000 : 50000]; % save after this many iterations
 
 %% Grid Size

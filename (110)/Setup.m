@@ -6,11 +6,11 @@ Temperature = 27; % in C
 Us_11 = -0.5*1e-2; % unitless misfit strain
 Us_22 = Us_11; % anisotropic misfit strain
 Us_12 = 0;
-STRING = 'BFO_5'; % Material Name
-PATH = './BFO_5/';
+STRING = 'BFO_6'; % Material Name
+PATH = './BFO_6/';
 VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
 VPA_ELASTIC_ON = 0;
-dt_factor = 0.06;
+dt_factor = 0.01;
 
 %% ---- Nothing needed to modify below ---- %%
 % BFO Constants http://www.mmm.psu.edu/JXZhang2008_JAP_Computersimulation.pdf
@@ -20,11 +20,11 @@ epsilon = 1e-5; % convergence criterion
 saves = [0 : 1000 : 100000]; % save after this many iterations
 
 %% Grid Size
-Nx = 64; Ny = Nx; Nz = 32; % Grid Points
-sub_index = 12; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
+Nx = 32; Ny = Nx; Nz = 32; % Grid Points
+sub_index = 16; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
 % sub_index = 0 to get no substrate part
 interface_index = sub_index + 1;
-film_index = 28; % where film ends, <= Nz, above this index, P = 0
+film_index = 31; % where film ends, <= Nz, above this index, P = 0
 Nz_film = film_index - sub_index; % film lies in the area between sub_index + 1 and film_index, film thickness
 Nz_film_sub = film_index;
 

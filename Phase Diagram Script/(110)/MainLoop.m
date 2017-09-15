@@ -8,7 +8,7 @@ while (c == 0 || error > epsilon) && c < saves(end)
     
     % saving 
     if( sum(c == saves) == 1 )        
-    	save(sprintf('%s%g t__%g Us11__%g Us22__%gC__%gkV-cm__%s.mat',PATH,c,Us_11*1e2,Us_22*1e2,T,E_1_applied_FilmRef/1e5,STRING),'P1_FilmRef','P2_FilmRef','P3_FilmRef');
+    	save(sprintf('%s%g t__%g Us11__%g Us22__%gC__%gkV-cm__%s.mat',PATH,c,Us_11*1e2,Us_22*1e2,Temperature,E_1_applied_FilmRef/1e5,STRING),'P1_FilmRef','P2_FilmRef','P3_FilmRef');
     end
     
     % Previous iteration
@@ -53,7 +53,7 @@ while (c == 0 || error > epsilon) && c < saves(end)
     errors(c) = error;
     % print error
     if( mod(c, 50) == 0 )
-        Visualize
+        %Visualize
         drawnow
         error   
     end

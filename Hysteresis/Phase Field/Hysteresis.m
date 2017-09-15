@@ -17,7 +17,7 @@
 %% Nucleation sites, have 0 free energy change...
 % Nucleation_Sites = +(rand(Nx,Ny,Nz) < (1-0.01)) .* in_film;
 Setup
-L = 5;
+L = 7;
 Nucleation_Sites = ones(Nx,Ny,Nz);
 xy_edges = 1;
 z_edges = 2;
@@ -37,7 +37,7 @@ Nucleation_pct = abs(sum(sum(sum(Nucleation_Sites-1)))/(Nx*Ny*(film_index-interf
 %    % 3 = 0 to -E_max
 %    % 4 = -E_max to 0
 %    % 5 = 0 to E_max
-E_fields = [0, 1e5, 2e5, 3e5];
+E_fields = [0, 1e5, 1e6, 1e7, 2.5e7, 5e7, 7.5e7, 1e8, 2.5e8, 5e8, 7.5e8];
 
 P1_Es = [];
 P2_Es = [];
@@ -46,7 +46,7 @@ Es = [];
 
 %%
 E_input = E_fields(1);
-[P1_mean, P2_mean, P3_mean] = Main_0(E_input, 0, 0, Nucleation_Sites, './Part 0_0 kVcm/', 0); % 0 kV/cm result if not done yet
+[P1_mean, P2_mean, P3_mean] = Main_0(E_input, 0, 0, Nucleation_Sites, './Part 0_0 kVcm/'); % 0 kV/cm result if not done yet
 PE
 
 %% Part 1

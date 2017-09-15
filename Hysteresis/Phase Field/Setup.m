@@ -1,5 +1,4 @@
 % Run inputs
-LOAD = 0; % 1 = Load initial conditions from file called init.mat, 0 = random P initial conditions
 Temperature = 27; % in C
 Us_11 = -0.5*1e-2; % unitless misfit strain
 Us_22 = Us_11; % anisotropic misfit strain
@@ -17,7 +16,7 @@ epsilon = 1e-2; % convergence criterion
 saves = [0 : 1000 : 10000]; % save after this many iterations
 
 %% Grid Size
-Nx = 8; Ny = Nx; Nz = 32; % Grid Points
+Nx = 32; Ny = Nx; Nz = 32; % Grid Points
 sub_index = 12; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
 % sub_index = 0 to get no substrate part
 interface_index = sub_index + 1;
