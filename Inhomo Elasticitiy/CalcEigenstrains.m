@@ -2,9 +2,16 @@
 Eigenstrain_11 = Q11 * P1.^2 + Q12 .* (P2.^2 + P3.^2);
 Eigenstrain_22 = Q11 * P2.^2 + Q12 .* (P1.^2 + P3.^2);
 Eigenstrain_33 = Q11 * P3.^2 + Q12 .* (P1.^2 + P2.^2);
-Eigenstrain_23 = q44 * P2 .* P3 / ( 2 * C44 );
-Eigenstrain_13 = q44 * P1 .* P3 / ( 2 * C44 );
-Eigenstrain_12 = q44 * P1 .* P2 / ( 2 * C44 ); 
+Eigenstrain_23 = q44 * P2 .* P3 ./ ( 2 * C44 );
+Eigenstrain_13 = q44 * P1 .* P3 ./ ( 2 * C44 );
+Eigenstrain_12 = q44 * P1 .* P2 ./ ( 2 * C44 ); 
+Eigenstrain_11(~logical(in_film)) = 0;
+Eigenstrain_22(~logical(in_film)) = 0;
+Eigenstrain_33(~logical(in_film)) = 0;
+Eigenstrain_23(~logical(in_film)) = 0;
+Eigenstrain_13(~logical(in_film)) = 0;
+Eigenstrain_12(~logical(in_film)) = 0;
+
 Eigenstrain_21 = Eigenstrain_12; Eigenstrain_31 = Eigenstrain_13; Eigenstrain_32 = Eigenstrain_23;
 
 Eigenstrain_11_k = fftn(Eigenstrain_11);

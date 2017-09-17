@@ -1,8 +1,8 @@
 % Phase diagram
-Us_range = [-2 : 0.05 : 2] * 1e-2;
-BTO_pct_range = [1 : -0.1 : 0];
+Us_range = [start : 0.05 : stop];
+BTO_pct_range = pct;
 Temperature_var = 27; % in C
-    
+
 % for BTO_pct_var = BTO_pct_range
 %     
 %     Us = 0; % doesn't matter
@@ -27,16 +27,16 @@ Temperature_var = 27; % in C
 %         'Green_FilmRef_k_21','Green_FilmRef_k_22','Green_FilmRef_k_23',...
 %         'Green_FilmRef_k_31','Green_FilmRef_k_32','Green_FilmRef_k_33');
 % end   
-    
+
 for Us_var = Us_range
     for BTO_pct_var = BTO_pct_range
-        
+
         PATH_var = sprintf('./Us_%g/BTO_pct_%g/',Us_var*1e2,BTO_pct_var);
         STRING_var = sprintf('BTO_pct_%g',BTO_pct_var);
         final_str = sprintf('%sfinal__%g Us11__%g Us22__%gC__%gkV-cm__%s.mat',PATH_var,Us_var*1e2,Us_var*1e2,Temperature_var,0,STRING_var);
         if ( ~exist( final_str ) ) % Haven't computed yet
             Main(Us_var,PATH_var,STRING_var,BTO_pct_var,Temperature_var);
         end
-        
+
     end
 end

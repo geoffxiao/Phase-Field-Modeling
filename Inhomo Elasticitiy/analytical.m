@@ -61,7 +61,7 @@ k_grid = [sym('kx_grid_3D'), sym('ky_grid_3D'), sym('kz_grid_3D')];
 
 %%
 
-u_prev_kspace = [sym('u_1_k_prev'), sym('u_2_k_prev'), sym('u_3_k_prev')]; % previous iteration
+u_prev_kspace = [sym('u_1_prev_k'), sym('u_2_prev_k'), sym('u_3_prev_k')]; % previous iteration
 
 % derivative of previous iteration in k space using kspace derivative
 u_dl_prev_kspace = sym(zeros(3,3));
@@ -86,23 +86,35 @@ end
 end
 
 u_next_kspace = sym(zeros(3,1)); % next iteration
+
+inner = sym(zeros(3,3));
+
+for i = 1 : 3
+for j = 1 : 3
+    for k = 1 : 3
+    for l = 1 : 3
+        inner(i,j) = inner(i,j) + ( (C_hom(i,j,k,l) + C_het_realspace(i,j,k,l)) * ...
+            (Eigenstrain_realspace(k,l) - TotalStrain_homo(k,l)) - ...
+            C_het_realspace(i,j,k,l) * u_dl_prev_realspace(k,l) );
+    end
+    end
+end
+end
+
+for i = 1 : 3
+for j = 1 : 3
+    if( inner(i,j) ~= 0 )
+        inner(i,j) = sym( sprintf('fftn( %s )',char(inner(i,j))) );
+    else
+        inner(i,j) = 0;
+    end
+end
+end
+
 for k = 1 : 3
     for i = 1 : 3
     for j = 1 : 3
-    for l = 1 : 3
-        
-        inner = ( (C_hom(i,j,k,l) + C_het_realspace(i,j,k,l)) * ...
-            (Eigenstrain_realspace(k,l) - TotalStrain_homo(k,l)) - ...
-            C_het_realspace(i,j,k,l) * u_dl_prev_realspace(k,l) );
-        if( inner ~= 0 )
-            inner = sym( sprintf('fftn( %s )',char(inner)) );
-        else
-            inner = 0;
-        end
-        
-        u_next_kspace(k) = u_next_kspace(k) + -1i * Green_homo_kspace(i,k) * k_grid(j) * inner;
-            
-    end
+        u_next_kspace(k) = u_next_kspace(k) + -1i * Green_homo_kspace(k,i) * k_grid(j) * inner(i,j);        
     end
     end
 end
@@ -149,4 +161,35 @@ for i = 1 : 3
     end
     end
     end
+end
+
+%%
+C11 = sym('C11');
+C12 = sym('C12');
+C44 = sym('C44');
+
+C(1,1,1,1) = C11; C(2,2,2,2) = C11; C(3,3,3,3) = C11;
+C(1,1,2,2) = C12; C(1,1,3,3) = C12; C(2,2,1,1) = C12;
+C(2,2,3,3) = C12; C(3,3,1,1) = C12; C(3,3,2,2) = C12;
+C(1,2,1,2) = C44; C(2,1,2,1) = C44; C(1,3,1,3) = C44;
+C(3,1,3,1) = C44; C(2,3,2,3) = C44; C(3,2,3,2) = C44;
+C(1,2,2,1) = C44; C(2,1,1,2) = C44; C(1,3,3,1) = C44;
+C(3,1,1,3) = C44; C(2,3,3,2) = C44; C(3,2,2,3) = C44;
+
+TotalStress_ij = sym(zeros(3,3));
+TotalStrain = sym(zeros(3,3));
+for i = 1 : 3
+for j = 1 : 3
+    TotalStrain(i,j) = sym( sprintf('TotalStrain_%g%g',i,j) );
+end
+end
+
+for i = 1 : 3
+for j = 1 : 3
+    for k = 1 : 3
+    for l = 1 : 3
+        TotalStress_ij(i,j) = TotalStress_ij(i,j) + C(i,j,k,l) * (TotalStrain(k,l) - Eigenstrain_realspace(k,l));
+    end
+    end
+end
 end

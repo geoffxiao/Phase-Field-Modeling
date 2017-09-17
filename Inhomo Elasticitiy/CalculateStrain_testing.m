@@ -1,56 +1,56 @@
 HET_ELASTIC_RELAX = 1;
-ITERATIVE_PERTURBATIONS = 0;
-% 
-% % C_hom = constant
-% C11_sub = 5e11;
-% C12_sub = 1.5e11;
-% C44_sub = 2.5e11;
-% 
-% C11_film = 2.4e11;
-% C12_film = 1e11;
-% C44_film = 1.24e11;
-% 
-% C11_air = 0;
-% C12_air = 0;
-% C44_air = 0;
-% 
-% C11 = zeros(Nx,Ny,Nz);
-% C12 = zeros(Nx,Ny,Nz);
-% C44 = zeros(Nx,Ny,Nz);
-% 
-% C11(:,:,[1:Nz]<interface_index) = C11_sub;
-% C12(:,:,[1:Nz]<interface_index) = C12_sub;
-% C44(:,:,[1:Nz]<interface_index) = C44_sub;
-% 
-% C11(:,:,interface_index<=[1:Nz]<=film_index) = C11_film;
-% C12(:,:,interface_index<=[1:Nz]<=film_index) = C12_film;
-% C44(:,:,interface_index<=[1:Nz]<=film_index) = C44_film;
-% 
-% C11(:,:,[1:Nz]>film_index) = C11_air;
-% C12(:,:,[1:Nz]>film_index) = C12_air;
-% C44(:,:,[1:Nz]>film_index) = C44_air;
-% 
-% C11_hom = mean(mean(mean(C11)));
-% C12_hom = mean(mean(mean(C12)));
-% C44_hom = mean(mean(mean(C44)));
-% 
-% C_hom(1,1,1,1) = C11_hom; C_hom(2,2,2,2) = C11_hom; C_hom(3,3,3,3) = C11_hom;
-% C_hom(1,1,2,2) = C12_hom; C_hom(1,1,3,3) = C12_hom; C_hom(2,2,1,1) = C12_hom;
-% C_hom(2,2,3,3) = C12_hom; C_hom(3,3,1,1) = C12_hom; C_hom(3,3,2,2) = C12_hom;
-% C_hom(1,2,1,2) = C44_hom; C_hom(2,1,2,1) = C44_hom; C_hom(1,3,1,3) = C44_hom;
-% C_hom(3,1,3,1) = C44_hom; C_hom(2,3,2,3) = C44_hom; C_hom(3,2,3,2) = C44_hom;
-% C_hom(1,2,2,1) = C44_hom; C_hom(2,1,1,2) = C44_hom; C_hom(1,3,3,1) = C44_hom;
-% C_hom(3,1,1,3) = C44_hom; C_hom(2,3,3,2) = C44_hom; C_hom(3,2,2,3) = C44_hom;
-% 
-% %%
-% % C_het = spatially dependent in real space
-% C11_het_realspace = C11 - C11_hom;
-% C12_het_realspace = C12 - C12_hom;
-% C44_het_realspace = C44 - C44_hom;
+ITERATIVE_PERTURBATIONS = 5;
+
+% C_hom = constant
+C11_sub = 5e11;
+C12_sub = 1.5e11;
+C44_sub = 2.5e11;
+
+C11_film = 2.4e11;
+C12_film = 1e11;
+C44_film = 1.24e11;
+
+C11_air = 0;
+C12_air = 0;
+C44_air = 0;
+
+C11 = zeros(Nx,Ny,Nz);
+C12 = zeros(Nx,Ny,Nz);
+C44 = zeros(Nx,Ny,Nz);
+
+C11(:,:,[1:Nz]<interface_index) = C11_sub;
+C12(:,:,[1:Nz]<interface_index) = C12_sub;
+C44(:,:,[1:Nz]<interface_index) = C44_sub;
+
+C11(:,:,interface_index<=[1:Nz]<=film_index) = C11_film;
+C12(:,:,interface_index<=[1:Nz]<=film_index) = C12_film;
+C44(:,:,interface_index<=[1:Nz]<=film_index) = C44_film;
+
+C11(:,:,[1:Nz]>film_index) = C11_air;
+C12(:,:,[1:Nz]>film_index) = C12_air;
+C44(:,:,[1:Nz]>film_index) = C44_air;
+
+C11_hom = mean(mean(mean(C11)));
+C12_hom = mean(mean(mean(C12)));
+C44_hom = mean(mean(mean(C44)));
+
+C_hom(1,1,1,1) = C11_hom; C_hom(2,2,2,2) = C11_hom; C_hom(3,3,3,3) = C11_hom;
+C_hom(1,1,2,2) = C12_hom; C_hom(1,1,3,3) = C12_hom; C_hom(2,2,1,1) = C12_hom;
+C_hom(2,2,3,3) = C12_hom; C_hom(3,3,1,1) = C12_hom; C_hom(3,3,2,2) = C12_hom;
+C_hom(1,2,1,2) = C44_hom; C_hom(2,1,2,1) = C44_hom; C_hom(1,3,1,3) = C44_hom;
+C_hom(3,1,3,1) = C44_hom; C_hom(2,3,2,3) = C44_hom; C_hom(3,2,3,2) = C44_hom;
+C_hom(1,2,2,1) = C44_hom; C_hom(2,1,1,2) = C44_hom; C_hom(1,3,3,1) = C44_hom;
+C_hom(3,1,1,3) = C44_hom; C_hom(2,3,3,2) = C44_hom; C_hom(3,2,2,3) = C44_hom;
+
+%%
+% C_het = spatially dependent in real space
+C11_het_realspace = C11 - C11_hom;
+C12_het_realspace = C12 - C12_hom;
+C44_het_realspace = C44 - C44_hom;
   
 %%
-%GreenHomoTensorSetup
-%HomoStrainSetup
+GreenHomoTensorSetup
+HomoStrainSetup
 
 TotalStrain_homo_11 = TotalStrain_homo_11_func(P1,P2,P3);
 TotalStrain_homo_12 = TotalStrain_homo_12_func(P1,P2,P3);
@@ -182,3 +182,15 @@ TotalStrain_31 = TotalStrain_13;
 % SS_tot = sum(sum(sum( (LHS - avg).^2 )));
 % SS_res = sum(sum(sum( (LHS - RHS).^2 )));
 % r_sq = 1 - SS_res / SS_tot
+
+%% stresses
+TotalStress_11 = - C11.*(Eigenstrain_11 - TotalStrain_11) - C12.*(Eigenstrain_22 - TotalStrain_22) - C12.*(Eigenstrain_33 - TotalStrain_33);
+TotalStress_12 = - C44.*(Eigenstrain_12 - TotalStrain_12) - C44.*(Eigenstrain_12 - TotalStrain_21);
+TotalStress_13 = - C44.*(Eigenstrain_13 - TotalStrain_13) - C44.*(Eigenstrain_13 - TotalStrain_31);
+TotalStress_22 = - C12.*(Eigenstrain_11 - TotalStrain_11) - C11.*(Eigenstrain_22 - TotalStrain_22) - C12.*(Eigenstrain_33 - TotalStrain_33);
+TotalStress_23 = - C44.*(Eigenstrain_23 - TotalStrain_23) - C44.*(Eigenstrain_23 - TotalStrain_32);
+TotalStress_33 = - C12.*(Eigenstrain_11 - TotalStrain_11) - C12.*(Eigenstrain_22 - TotalStrain_22) - C11.*(Eigenstrain_33 - TotalStrain_33);
+
+TotalStress_21 = TotalStress_12;
+TotalStress_31 = TotalStress_13;
+TotalStress_32 = TotalStress_23;

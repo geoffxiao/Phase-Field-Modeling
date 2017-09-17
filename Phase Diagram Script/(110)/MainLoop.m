@@ -53,7 +53,7 @@ while (c == 0 || error > epsilon) && c < saves(end)
     errors(c) = error;
     % print error
     if( mod(c, 50) == 0 )
-        %Visualize
+        Visualize
         drawnow
         error   
     end

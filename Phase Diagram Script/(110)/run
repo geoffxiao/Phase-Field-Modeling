@@ -10,11 +10,11 @@
 #$ -l m_mem_free=32G
 #$ -l h_vmem=32G
 #$ -l matlab=1
-     
+
 . /etc/profile.d/modules.sh
 module load shared
 module load sge/univa
 module load proteus
 module load matlab/R2015b
      
-matlab -nodisplay -nodesktop -nosplash -noFigureWindows -r Main
+matlab -nodisplay -nodesktop -nosplash -noFigureWindows -r "start=$start;stop=$stop;pct=$pct;PhaseDiagram"
