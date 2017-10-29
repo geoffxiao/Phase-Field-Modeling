@@ -1,32 +1,32 @@
 % Phase diagram
-Us_range = [start : 0.05 : stop];
+Us_range = [start : step : stop]*1e-2;
 BTO_pct_range = pct;
 Temperature_var = 27; % in C
 
-% for BTO_pct_var = BTO_pct_range
-%     
-%     Us = 0; % doesn't matter
-%     BTO_pct = BTO_pct_var;
-%     STO_pct = 1 - BTO_pct;
-%     Temperature = Temperature_var;
-%     
-%     FundamentalConstants;
-%     Setup;
-%     AxesSetup;
-%     TransformElasticTensor;
-%     GreenTensorSetup;
-%     
-%     InfinitePlateSetup_vpa
-%     ElectrostaticSetup_vpa;
-%     
-%     save(sprintf('Setup_Mats_BTO_pct%g.mat',BTO_pct),...
-%         'strain_bc_mats_inv','strain_bc_mat_inv_korigin',...
-%         'eigenvec_mat','eigenval_mat',...
-%         'electric_bc_mats_inv','electric_bc_mats_inv_korigin',...
-%         'Green_FilmRef_k_11','Green_FilmRef_k_12','Green_FilmRef_k_13',...
-%         'Green_FilmRef_k_21','Green_FilmRef_k_22','Green_FilmRef_k_23',...
-%         'Green_FilmRef_k_31','Green_FilmRef_k_32','Green_FilmRef_k_33');
-% end   
+for BTO_pct_var = BTO_pct_range
+    
+    Us = 0; % doesn't matter
+    BTO_pct = BTO_pct_var;
+    STO_pct = 1 - BTO_pct;
+    Temperature = Temperature_var;
+    
+    FundamentalConstants;
+    Setup;
+    AxesSetup;
+    TransformElasticTensor;
+    GreenTensorSetup;
+    
+    InfinitePlateSetup_vpa
+    ElectrostaticSetup_vpa;
+    
+    save(sprintf('Setup_Mats_BTO_pct%g.mat',BTO_pct),...
+        'strain_bc_mats_inv','strain_bc_mat_inv_korigin',...
+        'eigenvec_mat','eigenval_mat',...
+        'electric_bc_mats_inv','electric_bc_mats_inv_korigin',...
+        'Green_FilmRef_k_11','Green_FilmRef_k_12','Green_FilmRef_k_13',...
+        'Green_FilmRef_k_21','Green_FilmRef_k_22','Green_FilmRef_k_23',...
+        'Green_FilmRef_k_31','Green_FilmRef_k_32','Green_FilmRef_k_33');
+end   
 
 for Us_var = Us_range
     for BTO_pct_var = BTO_pct_range

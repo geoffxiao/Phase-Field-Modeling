@@ -1,0 +1,5 @@
+#!/bin/bash
+qsub -v start=-2,stop=-1.25,pct=1,step=0.25 run
+qsub -v start=-1,stop=-0.25,pct=1,step=0.25 run
+qsub -v start=0,stop=0.75,pct=1,step=0.25 run
+qsub -v start=1,stop=2,pct=1,step=0.25 run

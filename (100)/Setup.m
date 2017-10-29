@@ -1,33 +1,33 @@
 % Run inputs
-rng(100)
+rng(1)
 LOAD = 0; % 1 = Load initial conditions from file called init.mat, 0 = random P initial conditions
 E_1_applied = 0; E_2_applied = 0; E_3_applied = 0; % in V/m, 1e5 V/m = 1 kV/cm
-Us_11 = -0.5*1e-2; % unitless misfit strain
+Us_11 = 0.7*1e-2; % unitless misfit strain
 Us_22 = Us_11; % anisotropic misfit strain
 Us_12 = 0;
-BTO_pct = 0.6; STO_pct = 1 - BTO_pct;
-Temperature = 27;
+BTO_pct = 1; STO_pct = 1 - BTO_pct;
+Temperature = 103;
 
-PATH = '.\';
-STRING = 'BFO small Q44'; % Material Name
+PATH = './';
+STRING = 'BTO'; % Material Name
 
 VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
-VPA_ELASTIC_ON = 0;
-dt_factor = 0.01;
+VPA_ELASTIC_ON = 1;
+dt_factor = 0.02;
 
 %% ---- Nothing needed to modify below ---- %%
 % BFO Constants http://www.mmm.psu.edu/JXZhang2008_JAP_Computersimulation.pdf
 
 %% Convergence
-epsilon = 1e-3; % convergence criterion
-saves = [0 : 1000 : 50000]; % save after this many iterations
+epsilon = 1e-1; % convergence criterion
+saves = [0 : 1000 : 20000]; % save after this many iterations
 
 %% Grid Size
-Nx = 32; Ny = Nx; Nz = 32; % Grid Points
-sub_index = 12; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
+Nx = 128; Ny = Nx; Nz = 128; % Grid Points
+sub_index = 24; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
 % sub_index = 0 to get no substrate part
 interface_index = sub_index + 1;
-film_index = 28; % where film ends, <= Nz, above this index, P = 0
+film_index = Nz - 4; % where film ends, <= Nz, above this index, P = 0
 Nz_film = film_index - sub_index; % film lies in the area between sub_index + 1 and film_index, film thickness
 Nz_film_sub = film_index;
 
@@ -146,11 +146,12 @@ a1122 = a1122_BTO * BTO_pct + a1122_STO * STO_pct;
 a1123 = a1123_BTO * BTO_pct + a1123_STO * STO_pct;
 
 %% Simulation Size
-l_0 = 0.5e-9;
-Lx = l_0*(Nx-1); Ly = l_0*(Ny-1); Lz = l_0*(Nz-1);
+l_0 = 10e-9;
+Lx = l_0*(Nx-1); Ly = l_0*(Ny-1); Lz = 0.1*l_0*(Nz-1);
 
 %% Gradient Free Energy
-a0 = abs(a1_T(25));
+% Let us just make all BST comps have the same gradient energy...
+a0 = abs(a1_BTO(25));
 G110 = l_0^2 * a0; 
 G11 = 0.6 * G110;
 

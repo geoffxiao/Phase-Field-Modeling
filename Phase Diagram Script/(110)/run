@@ -5,10 +5,10 @@
 #$ -j y
 #$ -cwd
 #$ -P spanierPrj
-#$ -pe shm 2
+#$ -pe shm 16
 #$ -l h_rt=36:00:00
-#$ -l m_mem_free=32G
-#$ -l h_vmem=32G
+#$ -l m_mem_free=2G
+#$ -l h_vmem=2500M
 #$ -l matlab=1
 
 . /etc/profile.d/modules.sh
@@ -17,4 +17,4 @@ module load sge/univa
 module load proteus
 module load matlab/R2015b
      
-matlab -nodisplay -nodesktop -nosplash -noFigureWindows -r "start=$start;stop=$stop;pct=$pct;PhaseDiagram"
+matlab -nodisplay -nodesktop -nosplash -noFigureWindows -r "start=$start;stop=$stop;pct=$pct;step=$step;PhaseDiagram"

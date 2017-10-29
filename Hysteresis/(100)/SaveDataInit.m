@@ -1,0 +1,1 @@
+save('init.mat','P1','P2','P3'); % save in Main folder

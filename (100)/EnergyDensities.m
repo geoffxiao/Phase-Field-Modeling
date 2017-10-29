@@ -14,23 +14,23 @@ Eigenstrain_23 = Q44 * P2 .* P3;
 Eigenstrain_13 = Q44 * P1 .* P3;
 Eigenstrain_12 = Q44 * P1 .* P2; 
 
-ElasticStrain_11 = e_11 + e_11_homo( P1, P2, P3 ) - Eigenstrain_11;
-ElasticStrain_22 = e_22 + e_22_homo( P1, P2, P3 ) - Eigenstrain_22;
-ElasticStrain_33 = e_33 + e_33_homo( P1, P2, P3 ) - Eigenstrain_33;
-ElasticStrain_12 = e_12 + e_12_homo( P1, P2, P3 ) - Eigenstrain_12;
-ElasticStrain_23 = e_23 + e_23_homo( P1, P2, P3 ) - Eigenstrain_23;
-ElasticStrain_13 = e_13 + e_13_homo( P1, P2, P3 ) - Eigenstrain_13;
+ElasticStrain_11 = TotalStrain_11 + TotalStrain_homo_11( P1, P2, P3 ) - Eigenstrain_11;
+ElasticStrain_22 = TotalStrain_22 + TotalStrain_homo_22( P1, P2, P3 ) - Eigenstrain_22;
+ElasticStrain_33 = TotalStrain_33 + TotalStrain_homo_33( P1, P2, P3 ) - Eigenstrain_33;
+ElasticStrain_12 = TotalStrain_12 + TotalStrain_homo_12( P1, P2, P3 ) - Eigenstrain_12;
+ElasticStrain_23 = TotalStrain_23 + TotalStrain_homo_23( P1, P2, P3 ) - Eigenstrain_23;
+ElasticStrain_13 = TotalStrain_13 + TotalStrain_homo_13( P1, P2, P3 ) - Eigenstrain_13;
 
 f_elastic = (C11/2) .* ( ElasticStrain_11.^2 + ElasticStrain_22.^2 + ElasticStrain_33.^2 ) + ...
     (C12) .* ( ElasticStrain_11 .* ElasticStrain_22 + ElasticStrain_22 .* ElasticStrain_33 + ElasticStrain_11 .* ElasticStrain_33 ) + ...
     (2*C44) .* ( ElasticStrain_12.^2 + ElasticStrain_23.^2 + ElasticStrain_13.^2 );
 
-% e11_tot = e_11 + e_11_homo( P1, P2, P3 );
-% e22_tot = e_22 + e_22_homo( P1, P2, P3 );
-% e33_tot = e_33 + e_33_homo( P1, P2, P3 );
-% e12_tot = e_12 + e_12_homo( P1, P2, P3 );
-% e23_tot = e_23 + e_23_homo( P1, P2, P3 );
-% e13_tot = e_13 + e_13_homo( P1, P2, P3 );
+% e11_tot = TotalStrain_11 + TotalStrain_homo_11( P1, P2, P3 );
+% e22_tot = TotalStrain_22 + TotalStrain_homo_22( P1, P2, P3 );
+% e33_tot = TotalStrain_33 + TotalStrain_homo_33( P1, P2, P3 );
+% e12_tot = TotalStrain_12 + TotalStrain_homo_12( P1, P2, P3 );
+% e23_tot = TotalStrain_23 + TotalStrain_homo_23( P1, P2, P3 );
+% e13_tot = TotalStrain_13 + TotalStrain_homo_13( P1, P2, P3 );
 % 
 % f_elastic_2 = b11 .* ( P1.^4 + P2.^4 + P3.^4 ) + b12 .* ( P1.^2 .* P2.^2 + P1.^2 .* P3.^2 + P2.^2 .* P3.^2 ) + ...
 %     (C11/2) .* ( e11_tot.^2 + e22_tot.^2 + e33_tot.^2 ) + ...
@@ -74,3 +74,5 @@ F_elec = sum(sum(sum(f_elec)));
 F_elec_ext = sum(sum(sum(f_elec_ext)));
 
 [F_landau, F_elastic,F_grad,F_elec]
+
+F_tot = sum([F_landau, F_elastic,F_grad,F_elec]);

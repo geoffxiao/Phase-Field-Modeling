@@ -5,19 +5,19 @@ E_1_applied_FilmRef = 0; E_2_applied_FilmRef = 0; E_3_applied_FilmRef = 0; % in 
 Us_11 = Us; % unitless misfit strain
 Us_22 = Us_11; % anisotropic misfit strain
 Us_12 = 0;
-% VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
-% VPA_ELASTIC_ON = 0;
+VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
+VPA_ELASTIC_ON = 1;
 dt_factor = 0.01;
 
 %% ---- Nothing needed to modify below ---- %%
 % BFO Constants http://www.mmm.psu.edu/JXZhang2008_JAP_Computersimulation.pdf
 
 %% Convergence
-epsilon = 1e-3; % convergence criterion
+epsilon = 1e-1; % convergence criterion
 saves = [0 : 1000 : 20000]; % save after this many iterations
 
 %% Grid Size
-Nx = 32; Ny = Nx; Nz = 32; % Grid Points
+Nx = 64; Ny = Nx; Nz = 32; % Grid Points
 sub_index = 12; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
 % sub_index = 0 to get no substrate part
 interface_index = sub_index + 1;
@@ -144,7 +144,7 @@ l_0 = 0.5e-9;
 Lx = l_0*(Nx-1); Ly = l_0*(Ny-1); Lz = l_0*(Nz-1);
 
 %% Gradient Free Energy
-a0 = abs(a1_T(25));
+a0 = abs(a1_BTO(25));
 G110 = l_0^2 * a0; 
 G11 = 0.6 * G110;
 

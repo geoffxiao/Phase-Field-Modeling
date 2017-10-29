@@ -19,19 +19,24 @@ function [] = Main(Us_var, PATH_var, STRING_var, BTO_pct_var, Temperature_var)
     GreenTensorSetup;
     HomoStrainSetup;
     
-    load(sprintf('Setup_Mats_BTO_pct%g.mat',BTO_pct));
-%     %% Setup energy stuff
-%     if(VPA_ELASTIC_ON)
-%         InfinitePlateSetup_vpa;
-%     else
-%         InfinitePlateSetup;
-%     end
-% 
-%     if(VPA_ELECTRIC_ON)
-%         ElectrostaticSetup_vpa;
-%     else
-%         ElectrostaticSetup;
-%     end
+    %% Load from setup file...
+    load_file = sprintf('Setup_Mats_BTO_pct%g.mat',BTO_pct);
+    if( exist(load_file) )
+        load(load_file);
+    else
+        %% Setup energy stuff
+        if(VPA_ELASTIC_ON)
+            InfinitePlateSetup_vpa;
+        else
+            InfinitePlateSetup;
+        end
+
+        if(VPA_ELECTRIC_ON)
+            ElectrostaticSetup_vpa;
+        else
+            ElectrostaticSetup;
+        end
+    end
 
     %% Initial conditions
     InitP;
