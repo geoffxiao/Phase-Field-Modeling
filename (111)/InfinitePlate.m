@@ -12,9 +12,9 @@ bc_film_1 = real(ifftn(squeeze(bc_film_1_3Dk)));
 bc_film_2 = real(ifftn(squeeze(bc_film_2_3Dk)));
 bc_film_3 = real(ifftn(squeeze(bc_film_3_3Dk)));
 
-bc_film_1 = squeeze(bc_film_1(:,:,end));
-bc_film_2 = squeeze(bc_film_2(:,:,end));
-bc_film_3 = squeeze(bc_film_3(:,:,end));
+bc_film_1 = squeeze(bc_film_1(:,:,film_index));
+bc_film_2 = squeeze(bc_film_2(:,:,film_index));
+bc_film_3 = squeeze(bc_film_3(:,:,film_index));
 
 % Strain free substrate
 bc_sub_1 = -squeeze(u_1_A(:,:,1));

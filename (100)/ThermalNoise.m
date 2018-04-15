@@ -1,4 +1,5 @@
 % Thermal Noise
+ThermConst = k_boltzmann * Temperature / (dx * dy * dz);
 Thermal_Noise_Sigma = sqrt(2 * ThermConst);
 
 Thermal_Noise_1 = normrnd(0,Thermal_Noise_Sigma,Nx,Ny,Nz);

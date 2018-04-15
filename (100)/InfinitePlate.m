@@ -23,14 +23,14 @@ bc_film_2_3Dk = C44.*(Eigenstrain_23_k - ky_grid_3D.*u_3_A_k.*1i) + C44.*(Eigens
 bc_film_3_3Dk = C12.*(Eigenstrain_11_k - kx_grid_3D.*u_1_A_k.*1i) + C12.*(Eigenstrain_22_k - ky_grid_3D.*u_2_A_k.*1i) + C11.*(Eigenstrain_33_k - kz_grid_3D.*u_3_A_k.*1i);
 
 % real space bc
-% bc applied on the top surface in real space
+% bc applied on the top surface (surface of the film) in real space
 bc_film_1 = real(ifftn(squeeze(bc_film_1_3Dk)));
 bc_film_2 = real(ifftn(squeeze(bc_film_2_3Dk)));
 bc_film_3 = real(ifftn(squeeze(bc_film_3_3Dk)));
 
-bc_film_1 = squeeze(bc_film_1(:,:,end));
-bc_film_2 = squeeze(bc_film_2(:,:,end));
-bc_film_3 = squeeze(bc_film_3(:,:,end));
+bc_film_1 = squeeze(bc_film_1(:,:,film_index));
+bc_film_2 = squeeze(bc_film_2(:,:,film_index));
+bc_film_3 = squeeze(bc_film_3(:,:,film_index));
 
 % Strain free substrate
 bc_sub_1 = -squeeze(u_1_A(:,:,1));

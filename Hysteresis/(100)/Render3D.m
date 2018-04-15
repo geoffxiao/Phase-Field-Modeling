@@ -1,1 +1,0 @@
-Visualize_3D(P1,P2,P3,x_grid*1e9,y_grid*1e9,z_grid*1e9,interface_index,film_index,Nx,Ny,Nz)

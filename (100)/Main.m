@@ -9,18 +9,6 @@ GreenTensorSetup;
 HomoStrainSetup;
 
 %% Setup stuff
-if(VPA_ELASTIC_ON)
-    InfinitePlateSetup_vpa;
-else
-    InfinitePlateSetup;
-end
-
-if(VPA_ELECTRIC_ON)
-    ElectrostaticSetup_vpa;
-else
-    ElectrostaticSetup;
-end
-
 load_file_setup = sprintf('Setup_Mats_BTO_pct%g_%g%g%g.mat',BTO_pct,Nx,Ny,Nz);
 if( exist(load_file_setup) )
     load(load_file_setup);

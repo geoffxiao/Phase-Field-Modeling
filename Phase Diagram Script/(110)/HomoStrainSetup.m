@@ -1,9 +1,0 @@
-TotalStrain_FilmRef_homo_11 = @(P1_FilmRef, P2_FilmRef, P3_FilmRef) Us_11;
-TotalStrain_FilmRef_homo_22 = @(P1_FilmRef, P2_FilmRef, P3_FilmRef) Us_22;
-TotalStrain_FilmRef_homo_12 = @(P1_FilmRef, P2_FilmRef, P3_FilmRef) Us_12;
-TotalStrain_FilmRef_homo_33 = @(P1_FilmRef, P2_FilmRef, P3_FilmRef) -(2*C12*TotalStrain_FilmRef_homo_11(P1_FilmRef,P2_FilmRef,P3_FilmRef) + ...
-    C11*TotalStrain_FilmRef_homo_22(P1_FilmRef,P2_FilmRef,P3_FilmRef) + ...
-    C12*TotalStrain_FilmRef_homo_22(P1_FilmRef,P2_FilmRef,P3_FilmRef) - 2*C44*TotalStrain_FilmRef_homo_22(P1_FilmRef,P2_FilmRef,P3_FilmRef))...
-    /(C11 + C12 + 2*C44);
-TotalStrain_FilmRef_homo_23 = @(P1_FilmRef, P2_FilmRef, P3_FilmRef) 0;
-TotalStrain_FilmRef_homo_13 = @(P1_FilmRef, P2_FilmRef, P3_FilmRef) 0;

@@ -2,32 +2,62 @@
 rng(1)
 LOAD = 0; % 1 = Load initial conditions from file called init.mat, 0 = random P initial conditions
 E_1_applied = 0; E_2_applied = 0; E_3_applied = 0; % in V/m, 1e5 V/m = 1 kV/cm
-Us_11 = 0.7*1e-2; % unitless misfit strain
-Us_22 = Us_11; % anisotropic misfit strain
-Us_12 = 0;
+
+% https://arxiv.org/ftp/arxiv/papers/1304/1304.1631.pdf
+% Growth and Investigation of Nd1?xSmxScO3 and Sm1?xGdxScO3 Solid-Solution Single Crystals
+% R. Ueckera, D. Klimma, R. Bertrama, M. Bernhagena, I. Schulze-Jonacka, M. Brützama, A. Kwasniewskia, Th.M. Gesingb and D.G. Schlomc;d
+% SSO
+% GSO
+% NSO
+% GSO_lattice = 3.9678;
+% SSO_lattice = 3.9863;
+% NSO_lattice = 4.0080;
+
+SSO_lattice_11 = 3.9912;
+GSO_lattice_11 = 3.9701;
+NSO_lattice_11 = 4.0143;
+
+SSO_lattice_22 = 3.9814;
+GSO_lattice_22 = 3.9657;
+NSO_lattice_22 = 4.0017;
+
+Substrate_lattice_11 = SSO_lattice_11;
+Substrate_lattice_22 = SSO_lattice_22;
+
+% http://www.mmm.psu.edu/JWang2010_JAP_BTO1stPrinciple.pdf
+BTO_lattice = 4.006;
+% https://deepblue.lib.umich.edu/bitstream/handle/2027.42/62658/nature02773.pdf?sequence=1&isAllowed=y
+STO_lattice = 3.905;
 BTO_pct = 1; STO_pct = 1 - BTO_pct;
-Temperature = 103;
+BST_lattice = BTO_pct * BTO_lattice + STO_pct * STO_lattice;
+
+% http://www.iue.tuwien.ac.at/phd/dhar/node12.html
+Us_11 = ((Substrate_lattice_11 - BST_lattice) / BST_lattice); % unitless misfit strain
+Us_22 = ((Substrate_lattice_22 - BST_lattice) / BST_lattice); % anisotropic misfit strain
+Us_12 = 0;
+Us_11 = 0;
+Us_22 = 0;
+
+Temperature = 25;
 
 PATH = './';
-STRING = 'BTO'; % Material Name
+STRING = sprintf('BTO_%g-%g',BTO_pct*1e2,STO_pct*1e2); % Material Name
 
 VPA_ELECTRIC_ON = 1; % numerical errors when doing electric energy, so we need to use vpa
 VPA_ELASTIC_ON = 1;
 dt_factor = 0.02;
 
 %% ---- Nothing needed to modify below ---- %%
-% BFO Constants http://www.mmm.psu.edu/JXZhang2008_JAP_Computersimulation.pdf
-
 %% Convergence
-epsilon = 1e-1; % convergence criterion
+epsilon = 1e-4; % convergence criterion
 saves = [0 : 1000 : 20000]; % save after this many iterations
 
 %% Grid Size
-Nx = 128; Ny = Nx; Nz = 128; % Grid Points
-sub_index = 24; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
+Nx = 8; Ny = Nx; Nz = 8; % Grid Points
+sub_index = 2; % where substrate starts, >= 1, at and below this index P = 0, substrate thickness
 % sub_index = 0 to get no substrate part
 interface_index = sub_index + 1;
-film_index = Nz - 4; % where film ends, <= Nz, above this index, P = 0
+film_index = Nz - 2; % where film ends, <= Nz, above this index, P = 0
 Nz_film = film_index - sub_index; % film lies in the area between sub_index + 1 and film_index, film thickness
 Nz_film_sub = film_index;
 
@@ -146,14 +176,14 @@ a1122 = a1122_BTO * BTO_pct + a1122_STO * STO_pct;
 a1123 = a1123_BTO * BTO_pct + a1123_STO * STO_pct;
 
 %% Simulation Size
-l_0 = 10e-9;
-Lx = l_0*(Nx-1); Ly = l_0*(Ny-1); Lz = 0.1*l_0*(Nz-1);
+l_0 = 1e-9;
+Lx = l_0*(Nx-1); Ly = l_0*(Ny-1); Lz = l_0*(Nz-1);
 
 %% Gradient Free Energy
 % Let us just make all BST comps have the same gradient energy...
 a0 = abs(a1_BTO(25));
 G110 = l_0^2 * a0; 
-G11 = 0.6 * G110;
+G11 = 1 * G110;
 
 G12 = 0; % anisotropic part
 
@@ -168,4 +198,4 @@ RUN_TIME = 1; % time, not iterations
 MAX_ITERATIONS = RUN_TIME / dt;
 
 %% Electrical
-k_electric_11 = 1000; k_electric_22 = k_electric_11; k_electric_33 = k_electric_11;
+k_electric_11 = 100; k_electric_22 = k_electric_11; k_electric_33 = k_electric_11;
