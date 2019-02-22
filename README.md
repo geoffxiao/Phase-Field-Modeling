@@ -1,5 +1,7 @@
 Phase Field Modeling of Ferroelectrics using the Time-Dependent Landau-Ginzburg Equation
 
+See flowchart.ppt for a high level overview of the program/math.
+
 See README for detailed derivation and implementation details. README also contains validation tests
 
 See (100) for a phase field model for thin films grown on (100) oriented substrates
